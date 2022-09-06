@@ -1,3 +1,4 @@
+import { PropTypes } from 'prop-types';
 import { ContactItemStyle } from 'components/PhoneList/PhoneList.style';
 
 export const ContactItem = ({ contacts, removeContact }) => {
@@ -11,4 +12,8 @@ export const ContactItem = ({ contacts, removeContact }) => {
       </ContactItemStyle>
     );
   });
+};
+ContactItem.proptype = {
+  contacts: PropTypes.array.isRequired,
+  removeContact: PropTypes.func.isRequired,
 };

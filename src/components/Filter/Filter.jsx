@@ -1,3 +1,5 @@
+import { PropTypes } from 'prop-types';
+
 export const Filter = ({ filter, changeFilter }) => {
   return (
     <label>
@@ -10,4 +12,8 @@ export const Filter = ({ filter, changeFilter }) => {
       ></input>
     </label>
   );
+};
+Filter.propType = {
+  filter: PropTypes.array.isRequired,
+  changeFilter: PropTypes.func.isRequired,
 };
