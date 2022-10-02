@@ -1,7 +1,14 @@
 import { PropTypes } from 'prop-types';
 import { ContactItemStyle } from 'components/PhoneList/PhoneList.style';
+import { useDispatch } from 'react-redux';
+import { delContact } from 'redux/contactSlise';
+export const ContactItem = ({ contacts }) => {
+  const dispatch = useDispatch();
+  const removeContact = e => {
+    const removeId = e.currentTarget.value;
+    dispatch(delContact(removeId));
+  };
 
-export const ContactItem = ({ contacts, removeContact }) => {
   return contacts.map(({ id, name, number }) => {
     return (
       <ContactItemStyle key={id}>
@@ -15,5 +22,4 @@ export const ContactItem = ({ contacts, removeContact }) => {
 };
 ContactItem.proptype = {
   contacts: PropTypes.array.isRequired,
-  removeContact: PropTypes.func.isRequired,
 };

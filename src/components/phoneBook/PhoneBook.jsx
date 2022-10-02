@@ -1,35 +1,23 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { BookForm, BookLabel } from './PhoneBook.style';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts, addContact } from 'redux/contactSlise';
 
-export const PhoneBook = ({ onSubmit }) => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-
-  const handleChange = e => {
-    const { name, value } = e.currentTarget;
-
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'number':
-        setNumber(value);
-        break;
-      default:
-        return;
-    }
-  };
+export const PhoneBook = () => {
+  const contactsState = useSelector(getContacts);
+  const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit(name, number);
-    resetForm();
-  };
-
-  const resetForm = () => {
-    setName('');
-    setNumber('');
+    const form = e.currentTarget;
+    const name = form.elements.name.value;
+    const number = form.elements.number.value;
+    const isIncludeContact = name.toLowerCase();
+    contactsState.find(contact => {
+      return contact.name.toLowerCase() === isIncludeContact;
+    })
+      ? alert('You have already contact with name:' + name)
+      : dispatch(addContact({ name, number }));
+    form.reset();
   };
 
   return (
@@ -39,11 +27,9 @@ export const PhoneBook = ({ onSubmit }) => {
         <input
           type="text"
           name="name"
-          value={name}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
-          onChange={handleChange}
         />
       </BookLabel>
       <BookLabel>
@@ -51,18 +37,12 @@ export const PhoneBook = ({ onSubmit }) => {
         <input
           type="tel"
           name="number"
-          value={number}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          onChange={handleChange}
         />
       </BookLabel>
       <button type="submit">Add contact</button>
     </BookForm>
   );
-};
-
-PhoneBook.propType = {
-  onSubmit: PropTypes.func.isRequired,
 };
