@@ -1,9 +1,10 @@
 import { BookForm, BookLabel } from './PhoneBook.style';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, addContact } from 'redux/contactSlise';
+import { addContact } from 'redux/operation';
+import { getContactsData } from 'redux/selectors';
 
 export const PhoneBook = () => {
-  const contactsState = useSelector(getContacts);
+  const contactsState = useSelector(getContactsData);
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
@@ -11,6 +12,7 @@ export const PhoneBook = () => {
     const form = e.currentTarget;
     const name = form.elements.name.value;
     const number = form.elements.number.value;
+
     const isIncludeContact = name.toLowerCase();
     contactsState.find(contact => {
       return contact.name.toLowerCase() === isIncludeContact;

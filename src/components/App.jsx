@@ -1,32 +1,35 @@
 import { GlobalStyle } from 'globalstyle';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { PhoneBook } from './phoneBook/PhoneBook';
 import { Phonelist } from './PhoneList/PhoneList';
 import { ContactItem } from 'components/ContactItem/ContactItem';
 import { PhoneListStyle } from './PhoneList/PhoneList.style';
-import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/contactSlise';
 import { filterValue } from 'redux/filterSlise';
+import { fetchContacts } from 'redux/operation';
+import { getContactsData, getIsLoading } from 'redux/selectors';
 
 export const App = () => {
-  const contactsState = useSelector(getContacts);
+  const contactsState = useSelector(getContactsData);
   const dispatch = useDispatch();
-  const filterState = useSelector(filterValue);
+  const isLoading = useSelector(getIsLoading);
+  console.log(contactsState);
+
   function changeFilter(e) {
     dispatch(filterValue(e.currentTarget.value.toLowerCase().trim()));
   }
 
-  const getFiltredContacts = () => {
-    return contactsState.filter(contact =>
-      contact.name.toLowerCase().includes(filterState.payload.filter.filter)
-    );
-  };
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <>
       <PhoneBook />
       <Phonelist changeFilter={changeFilter} />
       <PhoneListStyle>
-        <ContactItem contacts={getFiltredContacts()} />
+        {isLoading && <p>Loading contacts...</p>}
+        <ContactItem />
       </PhoneListStyle>
       <GlobalStyle />
     </>
