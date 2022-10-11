@@ -1,37 +1,19 @@
-import { GlobalStyle } from 'globalstyle';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { PhoneBook } from './phoneBook/PhoneBook';
-import { Phonelist } from './PhoneList/PhoneList';
-import { ContactItem } from 'components/ContactItem/ContactItem';
-import { PhoneListStyle } from './PhoneList/PhoneList.style';
-import { filterValue } from 'redux/filterSlise';
-import { fetchContacts } from 'redux/operation';
-import { getContactsData, getIsLoading } from 'redux/selectors';
-
+import { Route, Routes, Navigate } from 'react-router-dom';
+import { SharedLayout } from '../pages/sharedLayout';
+import { Home } from '../pages/home/home';
+import { Login } from '../pages/login/login';
+import { SignUp } from 'pages/singUp/singUp';
+import { PhoneBook } from 'pages/phoneBook/phoneBook';
 export const App = () => {
-  const contactsState = useSelector(getContactsData);
-  const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
-  console.log(contactsState);
-
-  function changeFilter(e) {
-    dispatch(filterValue(e.currentTarget.value.toLowerCase().trim()));
-  }
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
   return (
-    <>
-      <PhoneBook />
-      <Phonelist changeFilter={changeFilter} />
-      <PhoneListStyle>
-        {isLoading && <p>Loading contacts...</p>}
-        <ContactItem />
-      </PhoneListStyle>
-      <GlobalStyle />
-    </>
+    <Routes>
+      <Route path="/" element={<SharedLayout />}>
+        <Route index element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/phoneBook" element={<PhoneBook />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Route>
+    </Routes>
   );
 };

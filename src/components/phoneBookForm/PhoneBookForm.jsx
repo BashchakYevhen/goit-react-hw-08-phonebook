@@ -1,9 +1,9 @@
-import { BookForm, BookLabel } from './PhoneBook.style';
+import { BookForm, BookLabel } from './PhoneBookForm.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operation';
 import { getContactsData } from 'redux/selectors';
 
-export const PhoneBook = () => {
+export const PhoneBookForm = () => {
   const contactsState = useSelector(getContactsData);
   const dispatch = useDispatch();
 
