@@ -1,7 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
-import { getisLoggedIn } from 'redux/selectors';
-import { logIn } from 'redux/authorization/operation';
+import { useDispatch } from 'react-redux';
+
+import { logIn } from 'redux/authorization/authOperation';
 export const Login = () => {
   const dispatch = useDispatch();
   const handleSubmit = e => {
@@ -12,10 +11,7 @@ export const Login = () => {
     dispatch(logIn({ email, password }));
     form.reset();
   };
-  const isLoggedIn = useSelector(getisLoggedIn);
-  if (isLoggedIn) {
-    return <Navigate to="/PhoneBook" replace={true} />;
-  }
+
   return (
     <form onSubmit={handleSubmit}>
       <label>
@@ -23,7 +19,6 @@ export const Login = () => {
         <input
           type="email"
           name="email"
-          // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
         />
@@ -33,7 +28,6 @@ export const Login = () => {
         <input
           type="password"
           name="password"
-          // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
         />

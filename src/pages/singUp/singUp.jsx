@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { getisLoggedIn } from 'redux/selectors';
-import { signUp } from 'redux/authorization/operation';
+import { signUp } from 'redux/authorization/authOperation';
 export const SignUp = () => {
   const dispatch = useDispatch();
   const handleSubmit = e => {
