@@ -8,7 +8,7 @@ import { filterValue } from 'redux/filterSlise';
 import { fetchContacts } from 'redux/operation';
 import { getIsLoading } from 'redux/selectors';
 import { PhoneBookForm } from 'components/phoneBookForm/PhoneBookForm';
-export const PhoneBook = () => {
+export default function PhoneBook() {
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoading);
   function changeFilter(e) {
@@ -29,4 +29,4 @@ export const PhoneBook = () => {
       <GlobalStyle />
     </>
   );
-};
+}

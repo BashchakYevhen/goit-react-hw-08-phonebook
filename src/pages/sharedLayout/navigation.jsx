@@ -1,4 +1,6 @@
 import { UserMenu } from 'components/userMenu/userMenu';
+import { Suspense } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
 import { getisLoggedIn } from 'redux/selectors';
@@ -24,7 +26,10 @@ export const Navigation = () => {
             </>
           )}
         </Header>
-        <Outlet />
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
+        <Toaster position="top-right" reverseOrder={false} />
       </div>
     </>
   );

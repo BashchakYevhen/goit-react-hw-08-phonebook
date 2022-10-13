@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { getisLoggedIn } from 'redux/selectors';
 import { signUp } from 'redux/authorization/authOperation';
-export const SignUp = () => {
+export default function SignUp() {
   const dispatch = useDispatch();
   const handleSubmit = e => {
     e.preventDefault();
@@ -52,4 +52,4 @@ export const SignUp = () => {
       <button type="submit">Register</button>
     </form>
   );
-};
+}

@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 
 import { logIn } from 'redux/authorization/authOperation';
-export const Login = () => {
+export default function Login () {
   const dispatch = useDispatch();
   const handleSubmit = e => {
     e.preventDefault();
