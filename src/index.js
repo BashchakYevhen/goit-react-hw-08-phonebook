@@ -8,7 +8,7 @@ import { theme } from './theme';
 import { Provider } from 'react-redux';
 import { store, persistor } from 'redux/store';
 import { ChakraProvider } from '@chakra-ui/react';
-import { GlobalStyle } from './globalStyle';
+import { GlobalStyle } from 'globalStyle';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
