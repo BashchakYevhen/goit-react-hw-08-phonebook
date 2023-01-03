@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import 'modern-normalize';
 
-export const GlobalStyle = createGlobalStyle`
+export const BaseStyle = createGlobalStyle`
   body { 
     background-size: cover;
     background-repeat: no-repeat;
