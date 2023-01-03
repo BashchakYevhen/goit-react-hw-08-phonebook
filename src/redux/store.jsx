@@ -9,7 +9,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import { contactsReducer } from './contactSlise';
-import { filterReducer } from './filterSlise';
+import { filterReducer } from './filterSlice';
 import { authPersistReducer } from './authorization/authSlise';
 
 export const store = configureStore({

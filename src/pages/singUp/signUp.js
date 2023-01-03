@@ -1,22 +1,27 @@
-import { Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { getIsLoggedIn } from 'redux/selectors';
+import { signUp } from 'redux/authorization/authOperation';
+import { Button, InputGroup, InputRightElement, Input } from '@chakra-ui/react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-import { logIn } from 'redux/authorization/authOperation';
-import { Form, ButtonStyle, Label } from './login.style';
-export default function Login() {
-  const [show, setShow] = useState(false);
+import { Form, ButtonStyle, Label } from 'pages/login/login.style';
+export default function SignUp() {
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
   const handleSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget;
     const email = form.email.value.trim();
+    const name = form.name.value.trim();
     const password = form.password.value.trim();
-    dispatch(logIn({ email, password }));
+    dispatch(signUp({ email, name, password }));
     form.reset();
   };
   const handleClick = () => setShow(!show);
-
+  const isLoggedIn = useSelector(getIsLoggedIn);
+  if (isLoggedIn) {
+    return <Navigate to="/PhoneBook" replace={true} />;
+  }
   return (
     <Form onSubmit={handleSubmit}>
       <Label>
@@ -24,7 +29,7 @@ export default function Login() {
         <Input
           borderColor={'#181818'}
           variant="outline"
-          w="300px"
+          w="400px"
           type="email"
           name="email"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
@@ -32,8 +37,20 @@ export default function Login() {
         />
       </Label>
       <Label>
+        Name
+        <Input
+          borderColor={'#181818'}
+          variant="outline"
+          w="400px"
+          type="text"
+          name="name"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+        />
+      </Label>
+      <Label>
         Password
-        <InputGroup size="md" width="300px">
+        <InputGroup size="md" width="400px">
           <Input
             borderColor={'#181818'}
             name="password"
@@ -48,8 +65,8 @@ export default function Login() {
           </InputRightElement>
         </InputGroup>
       </Label>
-      <ButtonStyle colorScheme="black" type="submit">
-        Login
+      <ButtonStyle type="submit" colorScheme="blue">
+        Register
       </ButtonStyle>
     </Form>
   );

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ContactItemStyle } from 'components/PhoneList/PhoneList.style';
 import { delContact } from 'redux/operation';
 import { getContactsData, getFilter } from 'redux/selectors';
+import { DelButton } from './ContactItem.style';
 
 export const ContactItem = () => {
   const contactsState = useSelector(getContactsData);
@@ -22,7 +23,7 @@ export const ContactItem = () => {
     return (
       <ContactItemStyle key={id}>
         {name}: {number}
-        <button
+        <DelButton
           type="button"
           value={id}
           onClick={() => {
@@ -30,7 +31,7 @@ export const ContactItem = () => {
           }}
         >
           Delete
-        </button>
+        </DelButton>
       </ContactItemStyle>
     );
   });

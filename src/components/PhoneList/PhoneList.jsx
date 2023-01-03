@@ -1,15 +1,15 @@
-import { Filter } from 'components/Filter/Filter';
+import { FilterLabel } from 'components/FilterLabel/FilterLabel';
 import { PropTypes } from 'prop-types';
 import { PhoneFilter } from './PhoneList.style';
-export const Phonelist = ({ changeFilter }) => {
+export const PhoneList = ({ changeFilter }) => {
   return (
     <PhoneFilter>
       <h1>Contacts</h1>
-      <Filter changeFilter={changeFilter} />
+      <FilterLabel changeFilter={changeFilter} />
     </PhoneFilter>
   );
 };
 
-Phonelist.propTypes = {
+PhoneList.propTypes = {
   changeFilter: PropTypes.func.isRequired,
 };

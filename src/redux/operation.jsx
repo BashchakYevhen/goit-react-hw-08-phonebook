@@ -40,6 +40,3 @@ export const delContact = createAsyncThunk(
     }
   }
 );
-// https://goit-task-manager.herokuapp.com/
-
-// https://connections-api.herokuapp.com

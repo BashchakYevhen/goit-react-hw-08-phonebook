@@ -1,29 +1,34 @@
 import { Navigate, Routes, Route } from 'react-router-dom';
-import { Navigation } from '../pages/sharedLayout/navigation';
+import { HeaderLogo } from '../pages/header/header';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, lazy } from 'react';
 import { fetchCurrentUser } from 'redux/authorization/authOperation';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 import { getIsRefreshing } from 'redux/selectors';
+import { Spinner } from '@chakra-ui/react';
 
 const HomePage = lazy(() => import('../pages/home/home.jsx'));
 const LoginPage = lazy(() => import('../pages/login/login.jsx'));
-const SignUpPage = lazy(() => import('../pages/singUp/singUp.jsx'));
-const PhoneBookPage = lazy(() => import('../pages/phoneBook/phoneBook.jsx'));
+const SignUpPage = lazy(() => import('../pages/singUp/signUp.js'));
+const PhoneBookPage = lazy(() =>
+  import('../components/PhoneBookPage/PhoneBookPage')
+);
 
 export const App = () => {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(getIsRefreshing);
+  // const isLoggedIn = useSelector(getIsLoggedIn);
+
   useEffect(() => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
 
   return isRefreshing ? (
-    <b>Reloading page ...</b>
+    <Spinner />
   ) : (
     <Routes>
-      <Route path="/" element={<Navigation />}>
+      <Route path="/" element={<HeaderLogo />}>
         <Route index element={<HomePage />} />
         <Route
           path="/login"
@@ -42,7 +47,7 @@ export const App = () => {
         <Route
           path="/phoneBook"
           element={
-            <PrivateRoute redirectTo="/login" component={<PhoneBookPage />} />
+            <PrivateRoute redirectTo="/" component={<PhoneBookPage />} />
           }
         />
         <Route path="*" element={<Navigate to="/" />} />

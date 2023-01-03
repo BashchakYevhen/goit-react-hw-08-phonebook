@@ -1,22 +1,34 @@
 import { useSelector, useDispatch } from 'react-redux';
+
 import { getName } from 'redux/selectors';
 import { logOut } from 'redux/authorization/authOperation';
-import avatarDefault from '../../image/avatarDefault.png';
-import { TextName, UserBar } from './useMenu.style';
-export const UserMenu = () => {
+
+import {
+  TextName,
+  Box,
+  Button,
+  PowerOffIcon,
+  UserIcon,
+  UserBar,
+} from './useMenu.style';
+
+export const UserMenu = props => {
   const name = useSelector(getName);
-  const avatar = avatarDefault;
+
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(logOut());
+    console.log(props.theme);
   };
   return (
-    <UserBar>
-      <img src={avatar} alt="avatar" width="32" />
-      <TextName>{name}</TextName>
-      <button type="button" onClick={handleClick}>
-        Logout
-      </button>
-    </UserBar>
+    <Box>
+      <UserBar>
+        <UserIcon />
+        <TextName>{name}</TextName>
+      </UserBar>
+      <Button colorScheme="#342e66" type="button" onClick={handleClick}>
+        <PowerOffIcon value={{ className: 'global-class-name' }} />
+      </Button>
+    </Box>
   );
 };

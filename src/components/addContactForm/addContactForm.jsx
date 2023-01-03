@@ -1,9 +1,11 @@
-import { BookForm, BookLabel } from './PhoneBookForm.style';
+import { BookForm, BookLabel } from './addContactForm.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operation';
 import { getContactsData } from 'redux/selectors';
+import { Input, InputGroup, InputLeftAddon } from '@chakra-ui/react';
+import { ButtonStyle } from 'pages/login/login.style';
 
-export const PhoneBookForm = () => {
+export const AddContactForm = () => {
   const contactsState = useSelector(getContactsData);
   const dispatch = useDispatch();
 
@@ -12,7 +14,7 @@ export const PhoneBookForm = () => {
     const form = e.currentTarget;
     const name = form.elements.name.value;
     const number = form.elements.number.value;
-
+    console.log('NUMBER===>', form.elements);
     const isIncludeContact = name.toLowerCase();
     contactsState.find(contact => {
       return contact.name.toLowerCase() === isIncludeContact;
@@ -26,7 +28,9 @@ export const PhoneBookForm = () => {
     <BookForm onSubmit={handleSubmit}>
       <BookLabel>
         Name
-        <input
+        <Input
+          borderColor={'#181818'}
+          variant="filled"
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -36,15 +40,21 @@ export const PhoneBookForm = () => {
       </BookLabel>
       <BookLabel>
         Number
-        <input
-          type="tel"
-          name="number"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-        />
+        <InputGroup borderColor={'#181818'}>
+          <InputLeftAddon children="+48" />
+          <Input
+            name="number"
+            borderColor={'#181818'}
+            type="tel"
+            placeholder="phone number"
+            variant="filled"
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            required
+          />
+        </InputGroup>
       </BookLabel>
-      <button type="submit">Add contact</button>
+      <ButtonStyle type="submit">Add contact</ButtonStyle>
     </BookForm>
   );
 };

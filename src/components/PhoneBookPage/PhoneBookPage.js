@@ -1,14 +1,16 @@
-import { GlobalStyle } from 'globalstyle';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Phonelist } from '../../components/PhoneList/PhoneList';
+import { PhoneList } from '../PhoneList/PhoneList';
 import { ContactItem } from 'components/ContactItem/ContactItem';
-import { PhoneListStyle } from '../../components/PhoneList/PhoneList.style';
-import { filterValue } from 'redux/filterSlise';
+import { PhoneListStyle } from '../PhoneList/PhoneList.style';
+import { filterValue } from 'redux/filterSlice';
 import { fetchContacts } from 'redux/operation';
 import { getIsLoading } from 'redux/selectors';
-import { PhoneBookForm } from 'components/phoneBookForm/PhoneBookForm';
-export default function PhoneBook() {
+import { AddContactForm } from 'components/addContactForm/addContactForm';
+import { Spinner } from '@chakra-ui/react';
+import { Wrapper } from 'components/warper/wraper';
+
+export default function PhoneBookPage() {
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoading);
   function changeFilter(e) {
@@ -19,14 +21,13 @@ export default function PhoneBook() {
     dispatch(fetchContacts());
   }, [dispatch]);
   return (
-    <>
-      <PhoneBookForm />
-      <Phonelist changeFilter={changeFilter} />
+    <Wrapper>
+      <AddContactForm />
+      <PhoneList changeFilter={changeFilter} />
       <PhoneListStyle>
-        {isLoading && <p>Loading contacts...</p>}
         <ContactItem />
+        {isLoading && <Spinner />}
       </PhoneListStyle>
-      <GlobalStyle />
-    </>
+    </Wrapper>
   );
 }
