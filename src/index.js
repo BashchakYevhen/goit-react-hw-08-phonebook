@@ -15,14 +15,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <ChakraProvider>
-          <PersistGate loading={null} persistor={persistor}>
-            <BrowserRouter basename="/goit-react-hw-08-phonebook/">
-              <App />
-            </BrowserRouter>
-          </PersistGate>
-        </ChakraProvider>
+        <GlobalStyle>
+          <ChakraProvider>
+            <PersistGate loading={null} persistor={persistor}>
+              <BrowserRouter basename="/goit-react-hw-08-phonebook/">
+                <App />
+              </BrowserRouter>
+            </PersistGate>
+          </ChakraProvider>
+        </GlobalStyle>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>
